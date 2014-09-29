@@ -1,0 +1,28 @@
+h1 Items
+
+= simple_form_for @item_search, url: items_path, method: :get do |f|
+  - ItemSearch.property_names.each do |property|
+    = f.input property, required: false
+  = f.submit :search
+
+br
+hr
+br
+
+table
+  thead
+    tr
+      th Name
+      th Description
+      th Properties
+
+  tbody
+    - @items.each do |item|
+      tr
+        td = item.name
+        td = item.description
+        td
+          - item.properties.each do |key, value|
+            div
+              b> #{key}:
+              em = value
